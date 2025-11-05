@@ -1,8 +1,108 @@
-# Supply Chain Observability API Documentation
+# Filflo Supply Chain Observability API Documentation
+
+<div align="center">
+
+**Filflo** - Smart Supply Chain Management Platform
+
+*Real-time visibility and control over your entire supply chain*
+
+</div>
+
+---
 
 **Version:** 1.0.0  
-**Base URL:** `https://api.yourcompany.com/v1`  
-**Authentication:** Bearer Token (JWT)
+**Base URL:** `https://api.filflo.in/v1`  
+**Authentication:** Bearer Token (JWT)  
+**Company:** Filflo Technologies  
+**Website:** https://filflo.in
+
+---
+
+## About Filflo
+
+Filflo is a comprehensive supply chain management platform that provides end-to-end visibility and control over your inventory, orders, fulfillment, and logistics operations. Our API enables seamless integration with your existing systems to unlock powerful observability and automation capabilities.
+
+---
+
+## Quick Start Guide
+
+### 1. Get Your API Credentials
+Contact the Filflo team at api-support@filflo.in or log into your Filflo dashboard at https://app.filflo.in to generate your API credentials.
+
+### 2. Authenticate
+```bash
+curl -X POST https://api.filflo.in/v1/auth/token \
+  -H "Content-Type: application/json" \
+  -d '{
+    "client_id": "your_client_id",
+    "client_secret": "your_client_secret",
+    "grant_type": "client_credentials"
+  }'
+```
+
+### 3. Make Your First API Call
+```bash
+curl -X GET https://api.filflo.in/v1/products \
+  -H "Authorization: Bearer YOUR_ACCESS_TOKEN"
+```
+
+### 4. Explore Our SDKs
+Filflo provides official SDKs for popular programming languages:
+- **Node.js:** `npm install @filflo/api-client`
+- **Python:** `pip install filflo-sdk`
+- **PHP:** `composer require filflo/api-client`
+- **Java:** Available on Maven Central
+
+---
+
+## Key Features
+
+🚀 **Real-time Observability** - Monitor your entire supply chain in real-time  
+📊 **Comprehensive Analytics** - Deep insights into sales, inventory, and operations  
+🔗 **Seamless Integration** - Easy integration with existing ERP and marketplace systems  
+🔔 **Smart Webhooks** - Real-time event notifications for critical operations  
+📱 **Multi-channel Support** - Unified API for Zepto, Blinkit, Swiggy, Amazon & more  
+🏭 **Multi-warehouse** - Manage inventory across multiple warehouses  
+📦 **End-to-end Tracking** - Complete visibility from PO to delivery  
+🎯 **Quality Management** - Built-in quality control and batch tracking  
+💰 **Dynamic Pricing** - Flexible rate cards and margin management  
+🔐 **Enterprise Security** - Bank-grade security with JWT authentication
+
+## Use Cases
+
+### E-commerce Operations
+- Sync orders from multiple marketplaces (Zepto, Blinkit, Swiggy, Amazon)
+- Real-time inventory updates across channels
+- Automated order fulfillment and tracking
+
+### Supply Chain Management
+- Complete procurement workflow from PO to GRN
+- Supplier performance monitoring
+- Quality control and batch tracking
+
+### Business Intelligence
+- Real-time sales and revenue analytics
+- Inventory optimization insights
+- Fulfillment performance metrics
+
+### Financial Operations
+- Automated invoice generation
+- GST-compliant documentation
+- Credit note management
+
+---
+
+## Environments
+
+Filflo provides multiple environments for development and production:
+
+| Environment | Base URL | Purpose |
+|------------|----------|---------|
+| **Production** | `https://api.filflo.in/v1` | Live production environment |
+| **Sandbox** | `https://sandbox-api.filflo.in/v1` | Testing and development |
+| **Staging** | `https://staging-api.filflo.in/v1` | Pre-production testing |
+
+**Note:** Use sandbox environment for testing. Sandbox data is reset weekly.
 
 ---
 
@@ -2297,7 +2397,7 @@ POST /analytics/export
     "customer_id": "B2BCUST-346",
     "order_type": "Zepto"
   },
-  "email_to": "user@example.com"
+  "email_to": "user@filflo.in"
 }
 ```
 
@@ -2324,7 +2424,7 @@ GET /analytics/export/{report_id}
   "report_id": "RPT-2025-001234",
   "status": "completed",
   "generated_at": "2025-11-05T12:25:00Z",
-  "download_url": "https://api.yourcompany.com/reports/RPT-2025-001234.xlsx",
+  "download_url": "https://api.filflo.in/reports/RPT-2025-001234.xlsx",
   "expires_at": "2025-11-12T12:25:00Z",
   "file_size_bytes": 2547890
 }
@@ -2504,24 +2604,116 @@ GET /orders?sort=po_date:desc,total_value:asc
 
 1. **Use appropriate endpoints** - Use specific endpoints (e.g., `/inventory/{sku}`) instead of listing all and filtering client-side
 2. **Cache responses** - Cache static data like product catalogs to reduce API calls
-3. **Use webhooks** - Subscribe to webhooks for real-time updates instead of polling
+3. **Use webhooks** - Subscribe to Filflo webhooks for real-time updates instead of polling
 4. **Batch requests** - Use batch endpoints where available to reduce API calls
 5. **Handle rate limits** - Implement exponential backoff when rate limited
-6. **Error handling** - Implement robust error handling and retry logic
-7. **Secure your credentials** - Never expose API keys in client-side code
+6. **Error handling** - Implement robust error handling and retry logic with Filflo error codes
+7. **Secure your credentials** - Never expose Filflo API keys in client-side code
 8. **Use pagination** - Always use pagination for large datasets
-9. **Monitor usage** - Track your API usage and optimize accordingly
+9. **Monitor usage** - Track your API usage via the Filflo dashboard at https://app.filflo.in/api/usage
+10. **Test in sandbox** - Use our sandbox environment at https://sandbox-api.filflo.in/v1 for testing
+
+---
+
+## SDK Examples
+
+### Node.js Example
+```javascript
+const Filflo = require('@filflo/api-client');
+
+const client = new Filflo({
+  clientId: 'your_client_id',
+  clientSecret: 'your_client_secret'
+});
+
+// Get products
+const products = await client.products.list({
+  category: 'GHEE - Ghee Products',
+  limit: 50
+});
+
+// Get inventory
+const inventory = await client.inventory.getBySku('FPCL-GHEE-HLKR-GJAR-1LTR');
+```
+
+### Python Example
+```python
+from filflo import FilfloClient
+
+client = FilfloClient(
+    client_id='your_client_id',
+    client_secret='your_client_secret'
+)
+
+# Get orders
+orders = client.orders.list(
+    order_status='in_transit',
+    date_from='2025-11-01'
+)
+
+# Track shipment
+tracking = client.shipments.track('292770760')
+```
+
+---
+
+## Changelog
+
+### Version 1.0.0 (November 5, 2025)
+- ✨ Initial release of Filflo Observability API
+- 🎯 Complete Products, Inventory, and Orders APIs
+- 📦 Purchase Orders and GRN management
+- 💰 Invoices and Credit Notes APIs
+- 🚚 Transporters and Logistics tracking
+- 🔬 Quality Management APIs
+- 💵 Rate Cards and Pricing APIs
+- 📊 Comprehensive Analytics and Reporting
+- 🔔 Webhook support for real-time notifications
+- 📚 Full API documentation with examples
+
+### Coming Soon
+- 🔄 Batch operations API
+- 🤖 AI-powered demand forecasting
+- 📱 Mobile SDK (iOS & Android)
+- 🔍 Advanced search with Elasticsearch
+- 📈 Custom dashboard widgets API
+- 🌐 Multi-language support
 
 ---
 
 ## Support
 
-For API support, please contact:
-- **Email:** api-support@yourcompany.com
-- **Documentation:** https://docs.yourcompany.com
-- **Status Page:** https://status.yourcompany.com
+For API support and assistance, Filflo offers multiple channels:
+
+### Contact Us
+- **Email:** api-support@filflo.in
+- **Sales:** sales@filflo.in
+- **Phone:** +91-XXXX-XXXXXX (9 AM - 6 PM IST, Mon-Fri)
+
+### Resources
+- **API Documentation:** https://docs.filflo.in
+- **Developer Portal:** https://developers.filflo.in
+- **Status Page:** https://status.filflo.in
+- **GitHub:** https://github.com/filflo
+- **Postman Collection:** https://www.postman.com/filflo
+
+### Dashboard Access
+- **Production:** https://app.filflo.in
+- **Sandbox:** https://sandbox.filflo.in
+
+### Community
+- **Discord:** https://discord.gg/filflo
+- **LinkedIn:** https://linkedin.com/company/filflo
+- **Twitter:** @filflo_in
+
+### Response Times
+- **Critical Issues:** < 2 hours
+- **Standard Support:** < 24 hours
+- **General Inquiries:** < 48 hours
 
 ---
 
 **Last Updated:** November 5, 2025  
-**Version:** 1.0.0
+**Version:** 1.0.0  
+**Powered by Filflo**  
+**© 2025 Filflo Technologies. All rights reserved.**
