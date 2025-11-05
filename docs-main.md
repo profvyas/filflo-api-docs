@@ -27,7 +27,7 @@ Filflo is a comprehensive supply chain management platform that provides end-to-
 ## Quick Start Guide
 
 ### 1. Get Your API Credentials
-Contact the Filflo team at api-support@filflo.in or log into your Filflo dashboard at https://app.filflo.in to generate your API credentials.
+Contact the Filflo team at team@filflo.in or log into your Filflo dashboard at https://app.filflo.in to generate your API credentials.
 
 ### 2. Authenticate
 ```bash
@@ -2397,7 +2397,7 @@ POST /analytics/export
     "customer_id": "B2BCUST-346",
     "order_type": "Zepto"
   },
-  "email_to": "user@filflo.in"
+  "email_to": "team@filflo.in"
 }
 ```
 
@@ -2686,8 +2686,8 @@ tracking = client.shipments.track('292770760')
 For API support and assistance, Filflo offers multiple channels:
 
 ### Contact Us
-- **Email:** api-support@filflo.in
-- **Sales:** sales@filflo.in
+- **Email:** team@filflo.in
+- **Sales:** shubham@filflo.in
 - **Phone:** +91-XXXX-XXXXXX (9 AM - 6 PM IST, Mon-Fri)
 
 ### Resources
